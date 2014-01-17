@@ -7,17 +7,20 @@
 idk about one-by-one vs fragment insertion, but this is more about document
 size than DOM efficiency, so let's go with fragments for now.</p>
 <button id="moar">Moar nodes!</button>
-<div id="msg"></div>
 <div id="container"></div>
 <script>
 var btn = document.getElementById('moar'),
-  messageBox = document.getElementById('msg'),
   container = document.getElementById('container');
 
-btn.addEventListener('click', function(e) {
-  e.stopPropagation();
-  appendNodes(container);
-});
+if (btn.addEventListener) {
+  btn.addEventListener('click', function(e) {
+    appendNodes(container);
+  });
+} else {
+  btn.attachEvent('onclick', function(e) {
+    appendNodes(container);
+  }
+}
 
 function appendNodes(el) {
   var frag = document.createDocumentFragment();
