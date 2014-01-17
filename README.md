@@ -1,7 +1,7 @@
 Setting up some test files for exercising browser profiler tools.
 
 Some things we can play around with:
-* create a ton of DOM nodes
+* create a ton of DOM nodes: [so-many-nodes](so-many-nodes.html)
 * add a ton of listeners to DOM nodes
 * parse a ton of JSON
 * be stupid about repainting as much as possible

@@ -1,0 +1,29 @@
+<!doctype html>
+<body>
+<p>Lots of DOM nodes.
+<p>Each time you hit this button, 10,000 spans get appended to a container div.
+<p>None of these things have any style, so repainting shouldn't be a thing.
+<p>So, create a ton of nodes and see how it looks in the profiler as you go.
+idk about one-by-one vs fragment insertion, but this is more about document
+size than DOM efficiency, so let's go with fragments for now.</p>
+<button id="moar">Moar nodes!</button>
+<div id="msg"></div>
+<div id="container"></div>
+<script>
+var btn = document.getElementById('moar'),
+  messageBox = document.getElementById('msg'),
+  container = document.getElementById('container');
+
+btn.addEventListener('click', function(e) {
+  e.stopPropagation();
+  appendNodes(container);
+});
+
+function appendNodes(el) {
+  var frag = document.createDocumentFragment();
+  for (var i = 0; i < 10000; i++) {
+    frag.appendChild(document.createElement('span'));
+  }
+  el.appendChild(frag);
+}
+</script>
