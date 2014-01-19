@@ -1,0 +1,33 @@
+<!doctype html>
+<body>
+<p>Lots of listeners on a couple of DOM nodes.
+<p>each time you hit the button, 100 anonymous listener functions (named incrementally) listen for clicks on the dummy button.
+<p>then, you can click the button and watch the CPU freak out.
+<button id="moar">moar handlers!</button>
+<button id="dummy">click to fire the handlers</button>
+<script>
+var moarBtn = document.getElementById('moar'),
+  dummyBtn = document.getElementById('dummy');
+
+var addListener = (function() {
+  if (document.addEventListener) {
+    return function addListener(element, eventName, callback) {
+      element.addEventListener(eventName, callback);
+      console.log('added a listener');
+    };
+  } else { 
+    return function addListener(element, eventName, callback) {
+      element.attachEvent('on' + eventName, callback);
+      console.log('added a listener');
+    };
+  }
+})();
+
+function onMoar() {
+  for (var i = 0; i < 100; i++) {
+    addListener(dummyBtn, 'click', function listener(){});
+  }
+}
+
+addListener(moarBtn, 'click', onMoar);
+</script>
